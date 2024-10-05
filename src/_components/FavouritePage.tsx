@@ -32,7 +32,7 @@ const FavouritePage: React.FC<ChannelCardProps> = ({favouriteList}) => {
     // Perform redirect logic here
   };
 
-  console.log(favouriteList, 'favouriteList2');
+//   console.log(favouriteList, 'favouriteList2');
   return (
     <Box minH={{ base: 'calc(100vh - 220px)', md: 'calc(100vh - 180px)' }}>
       {isEmpty(favouriteList) ? (

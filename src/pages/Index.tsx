@@ -108,7 +108,7 @@ export const HomePage: FC<ChannelProps> = () => {
     setSearchTerm(value);
   }, 300);
 
-  console.log(isEmpty(filteredData), 'filteredData')
+  // console.log(isEmpty(filteredData), 'filteredData')
 
   return (
     <>

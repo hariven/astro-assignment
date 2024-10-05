@@ -42,7 +42,7 @@ const ChannelCard: FC<ChannelCardProps> = memo(({ channel, favouriteList, onRedi
 
   const isFavourite = favouriteList?.some(item => item.id === id);
 
-  console.log('favouriteList', favouriteList);
+  // console.log('favouriteList', favouriteList);
   return (
     // <Link to={`/channel/${id}`}>
   <Box

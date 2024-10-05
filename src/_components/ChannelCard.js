@@ -8,7 +8,7 @@ import { isEmpty } from "lodash";
 const ChannelCard = memo(({ channel, favouriteList, onRedirect, onFavourite }) => {
     const { id, title, isHd, stbNumber, imageUrl, isAstroGoExclusive, currentSchedule, } = channel || {};
     const isFavourite = favouriteList?.some(item => item.id === id);
-    console.log('favouriteList', favouriteList);
+    // console.log('favouriteList', favouriteList);
     return (
     // <Link to={`/channel/${id}`}>
     _jsxs(Box, { display: "flex", flexDirection: "column", width: "300px" // Set a fixed width

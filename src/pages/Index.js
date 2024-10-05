@@ -54,7 +54,7 @@ export const HomePage = () => {
     const handleSearchChange = debounce((value) => {
         setSearchTerm(value);
     }, 300);
-    console.log(isEmpty(filteredData), 'filteredData');
+    // console.log(isEmpty(filteredData), 'filteredData')
     return (_jsxs(_Fragment, { children: [_jsx(Header, {}), _jsxs(Flex, { w: "90%", mx: "auto", justify: { base: "start", md: "space-between" }, flexDir: { base: "column", md: "row" }, mt: 2, children: [_jsx(Heading, { children: "Channels" }), isSearchOpen ? (_jsxs(HStack, { mt: { base: 3, md: 0 }, children: [_jsx(Input, { w: "300px", placeholder: "Type your keyword", value: searchTerm, onChange: (e) => handleSearchChange(e.target.value) }), _jsx(IconButton, { icon: _jsx(CloseIcon, {}), onClick: () => {
                                     setSearchTerm("");
                                     onSearchClose();
