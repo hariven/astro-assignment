@@ -36,7 +36,7 @@ import {
     const [selectedCat, setSelectedCat] = useState<string>(filters.category || "All");
     const [selectedLang, setSelectedLang] = useState<string>(filters.language || "All");
   
-    console.log({ selectedCat }, { selectedLang });
+    // console.log({ selectedCat }, { selectedLang });
   
     return (
       <HStack

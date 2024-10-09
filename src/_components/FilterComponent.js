@@ -8,7 +8,7 @@ import { categoryList, languageList } from "../utils/lists";
 const FilterSection = ({ filters, setFilters }) => {
     const [selectedCat, setSelectedCat] = useState(filters.category || "All");
     const [selectedLang, setSelectedLang] = useState(filters.language || "All");
-    console.log({ selectedCat }, { selectedLang });
+    // console.log({ selectedCat }, { selectedLang });
     return (_jsxs(HStack, { my: 3, align: "center", justify: { base: "start", md: "flex-end" }, children: [_jsxs(HStack, { background: useColorModeValue("#EDF2F7", "#FFFFFF14"), borderRadius: "8px", w: "120px", h: "40px", justify: "center", spacing: 5, children: [_jsx(Text, { fontWeight: "700", children: "HD?" }), _jsx(Switch, { isChecked: filters?.isHd, onChange: (e) => setFilters({
                             ...filters,
                             isHd: e.target.checked,

@@ -1,39 +1,57 @@
-import { Box, SimpleGrid, Heading, Flex, HStack, Input, IconButton, useDisclosure, Button, Collapse, Text } from "@chakra-ui/react";
+import {
+  Box,
+  SimpleGrid,
+  Heading,
+  Flex,
+  HStack,
+  Input,
+  IconButton,
+  useDisclosure,
+  Button,
+  Collapse,
+  Text,
+} from "@chakra-ui/react";
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import ChannelCard from "../_components/ChannelCard";
 import Header from "../_components/Layouts/Header";
 import { CheckCircleIcon, CloseIcon, Search2Icon } from "@chakra-ui/icons";
-import { AiOutlineFilter, AiOutlineSortAscending, AiOutlineSortDescending } from "react-icons/ai";
+import {
+  AiOutlineFilter,
+  AiOutlineSortAscending,
+  AiOutlineSortDescending,
+} from "react-icons/ai";
 import { BsSortNumericDown, BsSortNumericUpAlt } from "react-icons/bs";
 import useChannelStore, { sortSequence } from "../store/store";
 import { debounce, isEmpty } from "lodash";
 import FilterSection from "../_components/FilterComponent";
+import RenderIfVisible from "react-render-if-visible";
 // import { set } from "lodash";
+import { type Channel } from "../_components/ChannelCard";
+import { type ChannelCardProps } from "../_components/ChannelCard";
 
-interface Channel {
-  id: string;
-  title: string;
-  description?: string;
-  isHd?: boolean;
-  stbNumber: number; // Make stbNumber required
-  language?: string;
-  category?: string;
-  imageUrl?: string;
-  isAstroGoExclusive?: boolean;
-  filters?: string[];
-  detailUrl?: string;
-  currentSchedule?: { eventId: string; datetime: string; title: string }[];
-}
+// interface Channel {
+//   id: string;
+//   title: string;
+//   description?: string;
+//   isHd?: boolean;
+//   stbNumber: number;
+//   language?: string;
+//   category?: string;
+//   imageUrl?: string;
+//   isAstroGoExclusive?: boolean;
+//   filters?: string[];
+//   detailUrl?: string;
+//   currentSchedule?: { eventId: string; datetime: string; title: string }[];
+// }
 
-interface ChannelProps {
-  channel: Channel;
-  favouriteList: Channel[];
-  onRedirect: (id: string) => void;
-  onFavourite: (channel: Channel) => void;
-}
+// interface ChannelProps {
+//   channel: Channel;
+//   favouriteList: Channel[];
+//   onRedirect: (id: string) => void;
+//   onFavourite: (channel: Channel) => void;
+// }
 
-export const HomePage: FC<ChannelProps> = () => {
-  
+export const HomePage: FC<ChannelCardProps> = () => {
   const {
     channelList,
     favouriteList,
@@ -57,27 +75,27 @@ export const HomePage: FC<ChannelProps> = () => {
     isHd: false,
     category: undefined,
     language: undefined,
-  })
+  });
   const { isOpen: isFilterOpen, onToggle: onFilterToggle } = useDisclosure();
   const {
     isOpen: isSearchOpen,
     onToggle: onSearchToggle,
     onClose: onSearchClose,
   } = useDisclosure();
-    const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState("");
 
-    // console.log(channelList, 'channelList')
+  // console.log(channelList, 'channelList')
   // Fetch filtered channel data
   const filteredData = useMemo(() => {
-  if (!isFilterOpen && !searchTerm) return channelList;
+    if (!isFilterOpen && !searchTerm) return channelList;
 
-  if (searchTerm) {
-    return channelList.filter((channel: { title: string; }) =>
-      channel.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }
+    if (searchTerm) {
+      return channelList.filter((channel: { title: string }) =>
+        channel.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
 
-  const { isHd, category, language } = filters;
+    const { isHd, category, language } = filters;
 
     return channelList.filter(
       (channel) =>
@@ -90,12 +108,12 @@ export const HomePage: FC<ChannelProps> = () => {
   useEffect(() => {
     // Load favourites from localStorage when the component mounts
     loadFavourites();
-  }, [loadFavourites])
+  }, [loadFavourites]);
 
   // Handle adding/removing from favourites
   const handleFavourite = useCallback(
     (channel: Channel) => {
-      toggleFavourite(channel);
+      return toggleFavourite(channel);
     },
     [toggleFavourite]
   );
@@ -106,7 +124,7 @@ export const HomePage: FC<ChannelProps> = () => {
 
   const handleSearchChange = debounce((value: string) => {
     setSearchTerm(value);
-  }, 300);
+  }, 0);
 
   // console.log(isEmpty(filteredData), 'filteredData')
 
@@ -114,8 +132,8 @@ export const HomePage: FC<ChannelProps> = () => {
     <>
       <Header />
       <Flex
-      w={"90%"}
-      mx={"auto"}
+        w={"90%"}
+        mx={"auto"}
         justify={{ base: "start", md: "space-between" }}
         flexDir={{ base: "column", md: "row" }}
         mt={2}
@@ -134,29 +152,38 @@ export const HomePage: FC<ChannelProps> = () => {
               onClick={() => {
                 setSearchTerm("");
                 onSearchClose();
-              } } aria-label={""}            
-              />
+              }}
+              aria-label={""}
+            />
           </HStack>
         ) : (
           <HStack mt={{ base: 3, md: 0 }}>
-            <IconButton icon={<Search2Icon />} onClick={onSearchToggle} aria-label={""} />
             <IconButton
-            onClick={toggleSortName}
-                icon={sortName === sortSequence.ascending ? (
+              icon={<Search2Icon />}
+              onClick={onSearchToggle}
+              aria-label={""}
+            />
+            <IconButton
+              onClick={toggleSortName}
+              icon={
+                sortName === sortSequence.ascending ? (
                   <AiOutlineSortAscending />
                 ) : (
                   <AiOutlineSortDescending />
-                )} aria-label={""}              // onClick={() => {
-              //   dispatch.channelModel.toggleSortName();
-              // }}
+                )
+              }
+              aria-label={""}
             />
             <IconButton
-            onClick={toggleSortNumber}
-                icon={sortNumber === sortSequence.ascending ? (
+              onClick={toggleSortNumber}
+              icon={
+                sortNumber === sortSequence.ascending ? (
                   <BsSortNumericDown />
                 ) : (
                   <BsSortNumericUpAlt />
-                )} aria-label={""}              // onClick={() => dispatch.channelModel.toggleSortNumber()}
+                )
+              }
+              aria-label={""}
             />
             <Button
               leftIcon={<AiOutlineFilter />}
@@ -170,49 +197,50 @@ export const HomePage: FC<ChannelProps> = () => {
       </Flex>
       {/* </SimpleGrid> */}
       <Box
-      width={"90%"}
-      mx={"auto"}
+        width={"90%"}
+        mx={"auto"}
         display={"flex"}
         flexWrap="wrap"
         justifyContent="center"
         minH={{ base: "calc(100vh - 220px)", md: "calc(100vh - 180px)" }}
       >
+        {isFilterOpen && (
+          <Box width="100%" mb={3}>
+            {" "}
+            {/* New Box to isolate the FilterSection */}
+            <Collapse in={isFilterOpen} animateOpacity>
+              <FilterSection filters={filters} setFilters={setFilters} />
+            </Collapse>
+          </Box>
+        )}
 
-{isFilterOpen && (
-    <Box width="100%" mb={3}> {/* New Box to isolate the FilterSection */}
-      <Collapse in={isFilterOpen} animateOpacity>
-        <FilterSection filters={filters} setFilters={setFilters} />
-      </Collapse>
-    </Box>
-  )}
-      
-      {isEmpty(filteredData) ? (
-        <Flex
-          justify="center"
-          align="center"
-          flexDir="column"
-          // h={{ base: "calc(100vh - 350px)", md: "calc(100vh - 290px)" }}
-        >
-          <Text>Loading ...</Text>
-        </Flex>
-      ) : (
-        <SimpleGrid columns={[1, 1, 2, 3, 3, 3]} gap={5} mt={10}>
-          {filteredData?.map((channel) => (
-            <ChannelCard
-              channel={channel}
-              favouriteList={favouriteList}
-              key={channel.id}
-              onRedirect={handleRedirect}
-              onFavourite={handleFavourite}
-            />
-          ))}
-        </SimpleGrid>
-      )}
-
+        {isEmpty(filteredData) ? (
+          <Flex
+            justify="center"
+            align="center"
+            flexDir="column"
+            // h={{ base: "calc(100vh - 350px)", md: "calc(100vh - 290px)" }}
+          >
+            <Text>Loading ...</Text>
+          </Flex>
+        ) : (
+          <SimpleGrid columns={[1, 1, 2, 3, 3, 3]} gap={5} mt={10}>
+            {filteredData?.map((channel) => (
+              <RenderIfVisible>
+                <ChannelCard
+                  channel={channel}
+                  favouriteList={favouriteList}
+                  key={channel.id}
+                  onRedirect={handleRedirect}
+                  onFavourite={handleFavourite}
+                />
+              </RenderIfVisible>
+            ))}
+          </SimpleGrid>
+        )}
       </Box>
     </>
   );
 };
 
 export default HomePage;
-

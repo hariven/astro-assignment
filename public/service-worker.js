@@ -19,7 +19,7 @@ self.addEventListener('fetch', event => {
   const { request } = event;
 
   // Handle API requests
-  if (request.url.startsWith('https://api.example.com')) {
+  if (request.url.startsWith('https://contenthub-api.eco.astro.com.my/channel/all.json')) {
     event.respondWith(
       caches.match(request).then(cachedResponse => {
         // Return cached response if available, else fetch from network

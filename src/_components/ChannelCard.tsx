@@ -7,12 +7,12 @@ import { isEmpty } from "lodash";
 // import { useChannelCardStore } from './store';
 // import { Channel } from './store'; // Import the Channel type
 
-interface Channel {
-  id?: string;
+export interface Channel {
+  id: string;
   title: string;
   description?: string;
   isHd?: boolean;
-  stbNumber?: number;
+  stbNumber: number;
   language?: string;
   category?: string;
   imageUrl?: string;
@@ -22,7 +22,7 @@ interface Channel {
   currentSchedule?: { eventId: string; datetime: string; title: string }[];
 }
 
-interface ChannelCardProps {
+export interface ChannelCardProps {
   channel: Channel;
   favouriteList: Channel[];
   onRedirect: (id: string) => void;

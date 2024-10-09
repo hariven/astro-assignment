@@ -2,6 +2,26 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Box, Stack, Button, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import { isEmpty } from "lodash";
 import FavouriteCard from "./FavouriteCard";
+// interface Channel {
+//     id?: string;
+//     title: string;
+//     description?: string;
+//     isHd?: boolean;
+//     stbNumber?: number;
+//     language?: string;
+//     category?: string;
+//     imageUrl?: string;
+//     isAstroGoExclusive?: boolean;
+//     filters?: string[];
+//     detailUrl?: string;
+//     currentSchedule?: { eventId: string; datetime: string; title: string }[];
+//   }
+// interface ChannelCardProps {
+//     channel: Channel;
+//     favouriteList: Channel[];
+//     onRedirect: (id: string) => void;
+//     onFavourite: (channel: any) => void;
+//   }
 const FavouritePage = ({ favouriteList }) => {
     //   const { favouriteList } = useChannelStore(); // Get favouriteList from the store
     const onRedirect = (id) => {

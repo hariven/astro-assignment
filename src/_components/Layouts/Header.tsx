@@ -10,7 +10,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 // import logo from "./../../assets/astro-logo.png";
-import { HamburgerIcon, CloseIcon, SunIcon, MoonIcon } from "@chakra-ui/icons";
+import { SunIcon, MoonIcon } from "@chakra-ui/icons";
 
 const Header = ({...headerProps}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -26,7 +26,6 @@ const Header = ({...headerProps}) => {
       py={2}
       px={10}
       backgroundColor={useColorModeValue("blackAlpha.100", "blackAlpha.500")}
-      backdropFilter="saturate(180%) blur(5px)"
       w="100%"
       pos='fixed'
       {...headerProps}
@@ -62,13 +61,14 @@ const Header = ({...headerProps}) => {
         <HStack display={{ base: "inherit", md: "none" }} spacing={3}>
           <IconButton
             size={"md"}
-            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+            // icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
             aria-label={"Open Menu"}
             onClick={isOpen ? onClose : onOpen}
           />
           <IconButton
             icon={colorMode === "light" ? <SunIcon /> : <MoonIcon />}
-            onClick={toggleColorMode} aria-label={""}          />
+            onClick={toggleColorMode} aria-label={""}          
+            />
         </HStack>
       </Flex>
 
